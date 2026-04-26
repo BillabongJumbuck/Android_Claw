@@ -227,3 +227,32 @@ func (a *Agent) RunInputText(text string) string {
 		return fmt.Sprintf("Attempted to paste Unicode text: %s", text)
 	}
 }
+
+// RunSwipe 执行滑动操作。
+// 神奇技巧：如果 x1==x2 且 y1==y2，同时 duration > 500，就变成了“长按 (Long Press)”！
+func (a *Agent) RunSwipe(x1, y1, x2, y2, duration int) string {
+	// 如果持续时间太短，安卓系统可能会将其识别为无意触碰，所以给个默认保底值
+	if duration <= 0 {
+		duration = 300
+	}
+
+	cmd := fmt.Sprintf("input swipe %d %d %d %d %d", x1, y1, x2, y2, duration)
+	a.RunBash(cmd)
+
+	// 给系统一点时间完成动画渲染
+	time.Sleep(time.Duration(duration) * time.Millisecond)
+
+	if x1 == x2 && y1 == y2 {
+		return fmt.Sprintf("Long-pressed at (%d, %d) for %d ms", x1, y1, duration)
+	}
+	return fmt.Sprintf("Swiped from (%d, %d) to (%d, %d) in %d ms", x1, y1, x2, y2, duration)
+}
+
+// RunKeyevent 发送系统按键
+func (a *Agent) RunKeyevent(keycode int) string {
+	cmd := fmt.Sprintf("input keyevent %d", keycode)
+	a.RunBash(cmd)
+	time.Sleep(500 * time.Millisecond) // 等待界面切换
+
+	return fmt.Sprintf("Pressed system keyevent %d", keycode)
+}

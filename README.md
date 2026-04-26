@@ -1,3 +1,12 @@
+- [x] Turn on the dark theme for the system
+- [x] Install Quark App from app store
+- [ ] Search result for today’s gold price in USD in  Quark App
+
+#### limit
+- 无法识别网页
+- 不能输入中文
+- 仅支持文本模型
+
 #### config
 Create a `.env` file in your working directory with your LLM API credentials:
 ```env
@@ -36,3 +45,4 @@ adb shell
 $ cd /data/local/tmp
 $ ./ac
 ```
+
