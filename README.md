@@ -1,3 +1,8 @@
+#### 参考
+https://arxiv.org/abs/2602.22942
+
+
+#### progress
 - [x] Turn on the dark theme for the system
 - [x] Install Quark App from app store
 - [ ] Search result for today’s gold price in USD in  Quark App
